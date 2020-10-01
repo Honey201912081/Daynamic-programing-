@@ -1,0 +1,51 @@
+/*
+Given a rod of length and prices at which different length of this rod can sell, how do you cut this rod to maximize profit
+input:
+4
+5
+2 5 7 8 
+o/p: 12=>5+7 or 5+5+2
+
+*/
+#include <iostream>
+using namespace std;
+
+int main() {
+	
+	int length;
+	cin>>length;
+	int n;
+	cin>>n;
+	int cost[n];
+	for(int i=0;i<n;i++)
+	{
+	    cin>>cost[i];
+	}
+	int arr[n+1][length+1];
+	for(int i=0;i<=length;i++)
+	{
+	   arr[0][i]=0;
+	}
+	for(int i=0;i<=n;i++)
+	{
+	    arr[i][0]=0;
+	}
+	int maxi=0;
+    for(int i=1;i<=n;i++)
+    {
+        for(int j=1;j<=length;j++)
+        {
+            if(j>=i)
+            {
+                arr[i][j]=max(arr[i-1][j],arr[i][j-i]+cost[i-1]);
+            }
+            else
+                arr[i][j]=arr[i-1][j];
+            if(maxi<arr[i][j])
+                maxi=arr[i][j];
+        }
+    }
+    
+    cout<<maxi;
+	return 0;
+}
