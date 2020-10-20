@@ -1,0 +1,38 @@
+/*
+Given two strings s and t. Find the minimum number of operations that need to be performed on str1 to convert it to str2. The possible operations are:
+
+Insert
+Remove
+Replace
+
+Input: 
+s = "geek", t = "gesek"
+Output: 1
+Explanation: One operation is required 
+inserting 's' between two 'e's of str1.
+*/
+
+int editDistance(string s, string t)
+{ 
+int s1=s.size();
+int s2=t.size();
+int tmp[s1+1][s2+1];
+for(int i=0;i<=s1;i++)
+       tmp[i][0]=i;
+for(int i=0;i<=s2;i++)
+    {
+        tmp[0][i]=i;
+    }
+for(int i=1;i<=s1;i++)
+{
+        for(int j=1;j<=s2;j++)
+        {
+            if(s[i-1]==t[j-1])
+	            tmp[i][j]=tmp[i-1][j-1];
+            else
+	             tmp[i][j]=min(tmp[i][j-1],min(tmp[i-1][j-1],tmp[i-1][j]))+1;   
+        }
+   }
+   return tmp[s1][s2];
+
+}
